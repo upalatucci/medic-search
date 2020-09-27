@@ -60,7 +60,7 @@ class Admin extends React.Component{
     render() {
         return (
             <div>
-                {this.state.error != "" && <div className="alert">{this.state.error}</div>}
+                {this.state.error !== "" && <div className="alert">{this.state.error}</div>}
                 <label>Username : </label><input type="text" name="username" value={this.state.username} onChange={this.onChangeHandler} />
 
                 <label>Password : </label><input type="password" name="password" value={this.state.password} onChange={this.onChangeHandler} />

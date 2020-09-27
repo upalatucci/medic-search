@@ -1,16 +1,6 @@
 import React from 'react';
-import MultiSelect from "@khanacademy/react-multi-select";
+// import MultiSelect from "@khanacademy/react-multi-select";
 import NumericInput from 'react-numeric-input';
-
-
-const fluoOption = [
-    { label: "None", value: "" },
-    { label: "VSL", value: "VSL" },
-    { label: "FAINT", value: "FAINT" },
-    { label: "MEDIUM", value: "MEDIUM" },
-    { label: "STRONG", value: "STRONG" },
-    { label: "VST", value: "VST" }
-]
 
 const cutOption = [
     { label: "EXCELLENT", value: "EXCELLENT" },
@@ -112,19 +102,19 @@ class Filters extends React.Component {
             filteredDiamonds = filteredDiamonds.filter(o => selectedFluo.includes(o.Fluor));
         }
 
-        if (max != -1 && max != 0 && !isNaN(max)) {
+        if (max !== -1 && max !== 0 && !isNaN(max)) {
             filteredDiamonds = filteredDiamonds.filter(o => Number(o["Total Price"]) <= max);
         }
 
-        if (min != 0 && !isNaN(min)) {
+        if (min !== 0 && !isNaN(min)) {
             filteredDiamonds = filteredDiamonds.filter(o => Number(o["Total Price"]) >= min);
         }
 
-        if (carMin != 0 && !isNaN(carMin)) {
+        if (carMin !== 0 && !isNaN(carMin)) {
             filteredDiamonds = filteredDiamonds.filter(o => Number(o["Weight"]) >= carMin);
         }
 
-        if (carMax != -1 && carMax != 0 && !isNaN(carMax)) {
+        if (carMax !== -1 && carMax !== 0 && !isNaN(carMax)) {
             filteredDiamonds = filteredDiamonds.filter(o => Number(o["Weight"]) <= carMax);
         }
 
@@ -155,28 +145,28 @@ class Filters extends React.Component {
     }
 
     changeMax = (max) => {
-        if (max != "")
+        if (max !== "")
             this.setState({ max: Number(max) }, this.filterData);
         else
             this.setState({ max: -1 }, this.filterData)
     }
 
     changeMin = (min) => {
-        if (min != "")
+        if (min !== "")
             this.setState({ min: Number(min) }, this.filterData);
         else
             this.setState({ min: 0 }, this.filterData)
     }
 
     changeCarMax = (carMax) => {
-        if (carMax != "")
+        if (carMax !== "")
             this.setState({ carMax: Number(carMax) }, this.filterData);
         else
             this.setState({ carMax: -1 }, this.filterData)
     }
 
     changCareMin = (carMin) => {
-        if (carMin != "")
+        if (carMin !== "")
             this.setState({ carMin: Number(carMin) }, this.filterData);
         else
             this.setState({ carMin: 0 }, this.filterData)

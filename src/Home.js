@@ -8,7 +8,7 @@ function Home() {
   let [start, setStart] = useState(false);
   
   useEffect(() => {
-    Papa.parse("/data.csv", {
+    Papa.parse("https://drive.google.com/file/d/1i9vv2U1SEy2FB3L4BM7Fwyh53wC1KD_9/view?usp=sharing", {
       header: true,
       download: true,
       complete: function (results) {

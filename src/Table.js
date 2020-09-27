@@ -69,32 +69,6 @@ const Table = props => (
         Header: createHeader("$/ct"),
         accessor: "Price Per Carat",
         minWidth: 70
-      },
-      {
-        Header: createHeader("Prezzo"),
-        accessor: "Total Price",
-        minWidth: 70,
-        Cell: row => (
-          <span>{row.original["Total Price"].split(".")[0]}</span>
-        )
-      },
-      {
-        Header: createHeader("Dettagli"),
-        minWidth: 70,
-        Cell: row => (
-          <div>
-            <a href={row.original["Certificate Url"]}><button>Dettagli</button></a>
-          </div>
-        )
-      },
-      {
-        Header: createHeader("Compra"),
-        minWidth: 70,
-        Cell: row => (
-          <div>
-            <a href={row.original["Certificate Url"]}><button>Ordina</button></a>
-          </div>
-        )
       }
     ]}
   />
