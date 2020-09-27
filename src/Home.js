@@ -5,7 +5,7 @@ import Papa from 'papaparse';
 import dataCsv from './data.csv'
 
 function Home() {
-  let [diamonds, setDiamonds] = useState([]);
+  let [entries, setEntries] = useState([]);
   let [start, setStart] = useState(false);
   
   useEffect(() => {
@@ -13,7 +13,7 @@ function Home() {
       header: true,
       download: true,
       complete: function (results) {
-        setDiamonds(results.data);
+        setEntries(results.data);
         setStart(true);
       }
       });
@@ -21,11 +21,11 @@ function Home() {
 
   return (
     <div className="content">
-      <h1 stlye="color:#0b5394">Cerca il tuo Diamante</h1>
+      <h1 stlye="color:#0b5394">Ricerca Neoplasie</h1>
       {start ?
-        <Filter diamonds={diamonds} setDiamonds={setDiamonds} /> : <div></div>
+        <Filter data={entries} setData={setEntries} /> : <div></div>
       }
-      <Table data={diamonds} />
+      <Table data={entries} />
     </div>
   )
 }

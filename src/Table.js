@@ -16,59 +16,44 @@ const Table = props => (
     data={props.data}
     columns={[
       {
-        Header: createHeader("Lab"),
-        accessor: "Lab",
+        Header: createHeader("Nome e Cognome"),
+        accessor: "Nome e Cognome",
+        minWidth: 200
+      },
+      {
+        Header: createHeader("Età"),
+        accessor: "Eta",
         minWidth: 50
       },
       {
-        Header: createHeader("Carati"),
-        accessor: "Weight",
-        minWidth: 50
-      },
-      {
-        Header: createHeader("Colore"),
-        accessor: "Color",
+        Header: createHeader("Sesso"),
+        accessor: "Sesso",
         minWidth: 40
       },
       {
-        Header: createHeader("Purezza"),
-        accessor: "Clarity",
-        minWidth: 40
+        Header: createHeader("Residenza"),
+        accessor: "Residenza",
+        minWidth: 80
       },
       {
-        Header: createHeader("Taglio"),
-        accessor: "Cut",
+        Header: createHeader("Localizzazione"),
+        accessor: "Localizzazione",
         minWidth: 100
       },
       {
-        Header: createHeader("Simmetria"),
-        accessor: "Symmetry",
-        minWidth: 100
-      },
-      {
-        Header: createHeader("Polish"),
-        accessor: "Polish",
-        minWidth: 100
-      },
-      {
-        Header: createHeader("Lun."),
-        accessor: "Length",
+        Header: createHeader("T"),
+        accessor: "T",
         minWidth: 50
       },
       {
-        Header: createHeader("Larg."),
-        accessor: "Width",
+        Header: createHeader("N"),
+        accessor: "N",
         minWidth: 50
       },
       {
-        Header: createHeader("Spess."),
-        accessor: "Depth",
+        Header: createHeader("M"),
+        accessor: "M",
         minWidth: 50
-      },
-      {
-        Header: createHeader("$/ct"),
-        accessor: "Price Per Carat",
-        minWidth: 70
       }
     ]}
   />

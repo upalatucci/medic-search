@@ -71,8 +71,7 @@ class Filters extends React.Component {
             showOthers: true,
         }
 
-        this.initDiamond = props.diamonds;
-        console.log(this.initDiamond[0])
+        this.initDiamond = props.data;
     }
     filterData = () => {
         let filteredDiamonds = this.initDiamond;
@@ -119,7 +118,7 @@ class Filters extends React.Component {
         }
 
 
-        this.props.setDiamonds(filteredDiamonds);
+        this.props.setData(filteredDiamonds);
     }
 
     handleSelectionShape = (selectedShape) => {
@@ -174,184 +173,14 @@ class Filters extends React.Component {
 
     render() {
         return (
-            <div className="form">
-                <div className="multiselect-group border">
-                    <div className="row expand" onClick={() => this.setState({ showColor: !this.state.showColor })} >
-                        <label>Colore</label>
-                        <span className="margin-left-span">
-                            {this.state.showColor ? "-" : "+"}
-                        </span>
-                    </div>
-                    {this.state.showColor &&
-                        <div className="row">
-                            <div className="col-1 col-sm-1">
-                                {colorOptions.map(color => {
-                                    let content;
-                                    if (this.state.selectedColor.includes(color.value))
-                                        content = (<button key={color.value} className="buttonSelected buttonFilter" onClick={() => this.handleSelectionColor(this.state.selectedColor.filter(o => o !== color.value))}>{color.label}</button>);
-                                    else
-                                        content = (<button key={color.value} className="buttonFilter" onClick={() => {
-                                            let s = this.state.selectedColor;
-                                            s.push(color.value)
-                                            this.handleSelectionColor(s);
-                                        }}>{color.label}</button>);
+            <div>
+                <label htmlFor="nome">Nome e Cognome</label>
+                <input id="nome" type="text" name="nome"/>
 
-                                    return content;
-                                })}
-                            </div>
-                        </div>
-                    }
-                </div>
-
-                <div className="multiselect-group border">
-                    <div className="row expand" onClick={() => this.setState({ showClarity: !this.state.showClarity })} >
-                        <label>Purezza</label>
-                        <span className="margin-left-span">
-                            {this.state.showClarity ? "-" : "+"}
-                        </span>
-                    </div>
-                    {this.state.showClarity &&
-                        <div className="row">
-                            <div className="col-1 col-sm-1">
-                                {clarityOption.map(clarity => {
-                                    let content;
-                                    if (this.state.selectedClarity.includes(clarity.value))
-                                        content = (<button key={clarity.value} className="buttonSelected buttonFilter" onClick={() => this.handleSelectionColor(this.state.handleSelectionClarity.filter(o => o !== clarity.value))}>{clarity.label}</button>);
-                                    else
-                                        content = (<button key={clarity.value} className="buttonFilter" onClick={() => {
-                                            let s = this.state.selectedClarity;
-                                            s.push(clarity.value)
-                                            this.handleSelectionClarity(s);
-                                        }}>{clarity.label}</button>);
-
-                                    return content;
-                                })}
-                            </div>
-                        </div>
-                    }
-                </div>
-
-                <div className="others">
-                    <div className="expand others-expand" onClick={() => this.setState({ showOthers: !this.state.showOthers })} >
-                        <label>Altri</label>
-
-                        <span className="margin-left-span">
-                            {this.state.showOthers ? "-" : "+"}
-                        </span>
-                    </div>
-                    {this.state.showOthers &&
-                    <div className="gridrow">
-
-                        <div className="multiselect-group border">
-                            <div className="row expand">
-                                <label>Taglio</label>
-                            </div>
-                            {this.state.showCut &&
-                                <div className="row">
-                                    <div className="col-1 col-sm-1">
-                                        {cutOption.map(cut => {
-                                            let content;
-                                            if (this.state.selectedCut.includes(cut.value))
-                                                content = (<button key={cut.value} className="buttonSelected buttonFilter" onClick={() => this.handleSelectionCut(this.state.selectedCut.filter(o => o !== cut.value))}>{cut.label}</button>);
-                                            else
-                                                content = (<button key={cut.value} className="buttonFilter" onClick={() => {
-                                                    let s = this.state.selectedCut;
-                                                    s.push(cut.value)
-                                                    this.handleSelectionCut(s);
-                                                }}>{cut.label}</button>);
-
-                                            return content;
-                                        })}
-                                    </div>
-                                </div>
-                            }
-                        </div>
-
-
-
-                        <div className="multiselect-group border">
-                            <div className="row expand">
-                                <label>Simmetria</label>
-                            </div>
-                            {this.state.showSimmetry &&
-                                <div className="row">
-                                    <div className="col-1 col-sm-1">
-                                        {simmetryOption.map(simmetry => {
-                                            let content;
-                                            if (this.state.selectedSimmetry.includes(simmetry.value))
-                                                content = (<button key={simmetry.value} className="buttonSelected buttonFilter" onClick={() => this.handleSelectionSimmetry(this.state.selectedSimmetry.filter(o => o !== simmetry.value))}>{simmetry.label}</button>);
-                                            else
-                                                content = (<button key={simmetry.value} className="buttonFilter" onClick={() => {
-                                                    let s = this.state.selectedSimmetry;
-                                                    s.push(simmetry.value)
-                                                    this.handleSelectionSimmetry(s);
-                                                }}>{simmetry.label}</button>);
-
-                                            return content;
-                                        })}
-                                    </div>
-                                </div>
-                            }
-                        </div>
-
-                        <div className="multiselect-group border">
-                            <div className="row expand" >
-                                <label>Polish</label>
-                            </div>
-                            {this.state.showPolish &&
-                                <div className="row">
-                                    <div className="col-1 col-sm-1">
-                                        {polishOption.map(polish => {
-                                            let content;
-                                            if (this.state.selectedPolish.includes(polish.value))
-                                                content = (<button key={polish.value} className="buttonSelected buttonFilter" onClick={() => this.handleSelectionPolish(this.state.selectedPolish.filter(o => o !== polish.value))}>{polish.label}</button>);
-                                            else
-                                                content = (<button key={polish.value} className="buttonFilter" onClick={() => {
-                                                    let s = this.state.selectedPolish;
-                                                    s.push(polish.value)
-                                                    this.handleSelectionPolish(s);
-                                                }}>{polish.label}</button>);
-
-                                            return content;
-                                        })}
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                    }
-
-                </div>
-                <div className="numbersContainer">
-                    <div className="multiselect-group container price">
-                        <label>Prezzo</label>
-                        <div className="row">
-                            <div className="col num-input">
-                                <span className="num-input-span" >Da</span><NumericInput min={0} className="numeric-input padding-input" onChange={this.changeMin} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col num-input">
-                                <span className="num-input-span a-span" >A</span><NumericInput min={0} className="numeric-input padding-input" onChange={this.changeMax} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="multiselect-group container carat">
-                        <label>Carati</label>
-                        <div className="row">
-                            <div className="col num-input">
-                                <span className="num-input-span" >Da</span><NumericInput min={0} step="0.01" className="numeric-input padding-input" onChange={this.changeCarMin} />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col num-input">
-                                <span className="num-input-span a-span" >A</span><NumericInput min={0} step="0.01" className="numeric-input padding-input" onChange={this.changeCarMax} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <label htmlFor="min-eta">Età Minima</label>
+                <input id="min-eta" type="range" min="0" max="200"/>
+                <label htmlFor="max-eta">Età Massima</label>
+                <input id="max-eta" type="range" min="0" max="200"/>
             </div>
         )
     }
