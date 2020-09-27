@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Table from './Table';
 import Filter from './Filters';
 import Papa from 'papaparse';
+import dataCsv from './data.csv'
 
 function Home() {
   let [diamonds, setDiamonds] = useState([]);
   let [start, setStart] = useState(false);
   
   useEffect(() => {
-    Papa.parse("/data.csv", {
+    Papa.parse(dataCsv, {
       header: true,
       download: true,
       complete: function (results) {
