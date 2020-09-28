@@ -3,7 +3,7 @@ import ReactTable from "react-table";
 import Pagination from "./Pagination";
 
 import "react-table/react-table.css";
-import "./styles.css";
+import "./Table.css";
 
 function createHeader(title){
   return <span><strong>{title}</strong></span>
@@ -17,27 +17,27 @@ const Table = props => (
     columns={[
       {
         Header: createHeader("Nome e Cognome"),
-        accessor: "Nome e Cognome",
+        accessor: "nome",
         minWidth: 200
       },
       {
         Header: createHeader("Età"),
-        accessor: "Eta",
+        accessor: "eta",
         minWidth: 50
       },
       {
         Header: createHeader("Sesso"),
-        accessor: "Sesso",
+        accessor: "sesso",
         minWidth: 40
       },
       {
         Header: createHeader("Residenza"),
-        accessor: "Residenza",
+        accessor: "residenza",
         minWidth: 80
       },
       {
         Header: createHeader("Localizzazione"),
-        accessor: "Localizzazione",
+        accessor: "localizzazione",
         minWidth: 100
       },
       {

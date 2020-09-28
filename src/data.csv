@@ -1,3 +1,3 @@
-Nome e Cognome,Eta,Sesso,Residenza,T,N,M,Localizzazione
+nome,eta,sesso,residenza,T,N,M,localizzazione
 Davide Rossi,67,M,Salerno,1,2,3,Colon
-Giulia Galdi,71,S,Milano,3,1,2,Seno
+Giulia Galdi,71,F,Milano,3,1,2,Seno

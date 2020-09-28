@@ -1,186 +1,110 @@
 import React from 'react';
-// import MultiSelect from "@khanacademy/react-multi-select";
-import NumericInput from 'react-numeric-input';
-
-const cutOption = [
-    { label: "EXCELLENT", value: "EXCELLENT" },
-    { label: "VERY GOOD", value: "VERY GOOD" },
-    { label: "GOOD", value: "GOOD" },
-    { label: "IDEAL", value: "IDEAL" }
-]
-const simmetryOption = [
-    { label: "EXCELLENT", value: "EXCELLENT" },
-    { label: "VERY GOOD", value: "VERY GOOD" },
-    { label: "GOOD", value: "GOOD" },
-    { label: "FAIR", value: "FAIR" }
-]
-const polishOption = [
-    { label: "EXCELLENT", value: "EXCELLENT" },
-    { label: "VERY GOOD", value: "VERY GOOD" },
-    { label: "GOOD", value: "GOOD" },
-    { label: "FAIR", value: "FAIR" }
-]
-
-const colorOptions = [
-    { label: "D", value: "D" },
-    { label: "E", value: "E" },
-    { label: "F", value: "F" },
-    { label: "G", value: "G" },
-    { label: "H", value: "H" },
-    { label: "I", value: "I" },
-    { label: "J", value: "J" },
-    { label: "K", value: "K" },
-    { label: "L/M", value: "L/M" },
-    { label: "Fancy", value: "Fancy" },
-];
-
-const clarityOption = [
-    { label: "FL", value: "FL" },
-    { label: "IF", value: "IF" },
-    { label: "VVS1", value: "VVS1" },
-    { label: "VVS2", value: "VVS2" },
-    { label: "VS1", value: "VS1" },
-    { label: "VS2", value: "VS2" },
-    { label: "SI1", value: "SI1" },
-    { label: "SI2", value: "SI2" },
-    { label: "SI3", value: "SI3" },
-    { label: "I1", value: "I1" },
-];
 
 class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedShape: [],
-            selectedColor: [],
-            selectedClarity: [],
-            selectedCut: [],
-            selectedSimmetry: [],
-            selectedPolish: [],
-            selectedFluo: [],
-            min: 0,
-            max: -1,
-            carMin: 0,
-            carMax: -1,
-            showColor: true,
-            showClarity: true,
-            showCut: true,
-            showSimmetry: true,
-            showPolish: true,
-            showFluo: true,
-            showOthers: true,
+            nome: '',
+            minEta: '',
+            maxEta: '',
+            sesso: '',
+            residenza: '',
+            localizzazione: ''
         }
 
-        this.initDiamond = props.data;
+        this.initEntries = props.data;
+        this.optionResidenza = [];
+        this.optionLocalizzazione = [];
+
+        this.initEntries.forEach(entry => {
+            if (!this.optionResidenza.includes(entry.residenza))
+                this.optionResidenza.push(entry.residenza)
+
+            if (!this.optionLocalizzazione.includes(entry.localizzazione))
+                this.optionLocalizzazione.push(entry.localizzazione)
+            
+            if (this.state.minEta === '' || this.state.minEta > entry.eta)
+                this.state.minEta = entry.eta
+            
+            if (this.state.maxEta === '' || this.state.maxEta < entry.eta)
+                this.state.maxEta = entry.eta
+            
+        })
+
+        this.optionResidenza.sort()
+        this.optionLocalizzazione.sort()
     }
+
     filterData = () => {
-        let filteredDiamonds = this.initDiamond;
-        const { selectedShape, selectedColor, selectedClarity, selectedCut, selectedSimmetry, selectedFluo, selectedPolish, max, min, carMin, carMax } = this.state;
 
-        console.log(selectedShape)
-        if (selectedShape && selectedShape.length > 0)
-            filteredDiamonds = filteredDiamonds.filter(o => selectedShape.includes(o.Shape));
+        const filter = (entry, columnToFilter, valueToFilter) => {
+            return valueToFilter === '' || entry[columnToFilter] === valueToFilter
+        } 
 
-        if (selectedColor && selectedColor.length > 0) {
-            filteredDiamonds = filteredDiamonds.filter(o => selectedColor.includes(o.Color));
+        const filterName = (entry) => {
+            return entry.nome.includes(this.state.nome)
         }
 
-        if (selectedClarity && selectedClarity.length > 0) {
-            filteredDiamonds = filteredDiamonds.filter(o => selectedClarity.includes(o.Clarity));
-        }
-        if (selectedCut && selectedCut.length > 0) {
-            filteredDiamonds = filteredDiamonds.filter(o => selectedCut.includes(o.Cut));
-        }
-        if (selectedPolish && selectedPolish.length > 0) {
-            filteredDiamonds = filteredDiamonds.filter(o => selectedPolish.includes(o.Polish));
-        }
-        if (selectedSimmetry && selectedSimmetry.length > 0) {
-            filteredDiamonds = filteredDiamonds.filter(o => selectedSimmetry.includes(o.Symmetry));
-        }
-        if (selectedFluo && selectedFluo.length > 0) {
-            filteredDiamonds = filteredDiamonds.filter(o => selectedFluo.includes(o.Fluor));
-        }
-
-        if (max !== -1 && max !== 0 && !isNaN(max)) {
-            filteredDiamonds = filteredDiamonds.filter(o => Number(o["Total Price"]) <= max);
-        }
-
-        if (min !== 0 && !isNaN(min)) {
-            filteredDiamonds = filteredDiamonds.filter(o => Number(o["Total Price"]) >= min);
-        }
-
-        if (carMin !== 0 && !isNaN(carMin)) {
-            filteredDiamonds = filteredDiamonds.filter(o => Number(o["Weight"]) >= carMin);
-        }
-
-        if (carMax !== -1 && carMax !== 0 && !isNaN(carMax)) {
-            filteredDiamonds = filteredDiamonds.filter(o => Number(o["Weight"]) <= carMax);
-        }
-
-
-        this.props.setData(filteredDiamonds);
+        this.props.setData(this.initEntries.filter(e => {
+            return (
+                filterName(e) &&
+                filter(e, "sesso", this.state.sesso) &&
+                filter(e, "residenza", this.state.residenza) &&
+                filter(e, "localizzazione", this.state.localizzazione) &&
+                (e.eta >= this.state.minEta && e.eta <= this.state.maxEta )
+            )
+        }))
     }
 
-    handleSelectionShape = (selectedShape) => {
-        this.setState({ selectedShape }, this.filterData);
-    }
-    handleSelectionColor = (selectedColor) => {
-        this.setState({ selectedColor }, this.filterData);
-    }
-    handleSelectionClarity = (selectedClarity) => {
-        this.setState({ selectedClarity }, this.filterData);
-    }
-    handleSelectionCut = (selectedCut) => {
-        this.setState({ selectedCut }, this.filterData);
-    }
-    handleSelectionSimmetry = (selectedSimmetry) => {
-        this.setState({ selectedSimmetry }, this.filterData);
-    }
-    handleSelectionPolish = (selectedPolish) => {
-        this.setState({ selectedPolish }, this.filterData);
-    }
-    handleSelectionFluo = (selectedFluo) => {
-        this.setState({ selectedFluo }, this.filterData);
-    }
-
-    changeMax = (max) => {
-        if (max !== "")
-            this.setState({ max: Number(max) }, this.filterData);
-        else
-            this.setState({ max: -1 }, this.filterData)
-    }
-
-    changeMin = (min) => {
-        if (min !== "")
-            this.setState({ min: Number(min) }, this.filterData);
-        else
-            this.setState({ min: 0 }, this.filterData)
-    }
-
-    changeCarMax = (carMax) => {
-        if (carMax !== "")
-            this.setState({ carMax: Number(carMax) }, this.filterData);
-        else
-            this.setState({ carMax: -1 }, this.filterData)
-    }
-
-    changCareMin = (carMin) => {
-        if (carMin !== "")
-            this.setState({ carMin: Number(carMin) }, this.filterData);
-        else
-            this.setState({ carMin: 0 }, this.filterData)
+    onchangeFilter = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        }, this.filterData)
     }
 
     render() {
         return (
-            <div>
-                <label htmlFor="nome">Nome e Cognome</label>
-                <input id="nome" type="text" name="nome"/>
+            <div className="filters">
+                <div>
+                    <label htmlFor="nome">Nome e Cognome</label>
+                    <input id="nome" type="text" name="nome" onChange={this.onchangeFilter} value={this.state.nome} />
+                </div>
 
-                <label htmlFor="min-eta">Età Minima</label>
-                <input id="min-eta" type="range" min="0" max="200"/>
-                <label htmlFor="max-eta">Età Massima</label>
-                <input id="max-eta" type="range" min="0" max="200"/>
+                <div>
+                    <label htmlFor="min-eta">Età Minima</label>
+                    <input id="min-eta" type="number" name="minEta" min="0" max="150" onChange={this.onchangeFilter} value={this.state.minEta} />
+                    <label htmlFor="max-eta">Età Massima</label>
+                    <input id="max-eta" type="number" name="maxEta" min="0" max="150" onChange={this.onchangeFilter} value={this.state.maxEta} />
+                </div>
+
+                <div>
+                <label htmlFor="sesso">Sesso</label>
+                <select id="sesso" name="sesso" onChange={this.onchangeFilter} value={this.state.sesso}>
+                    <option value="">Tutti</option>
+                    <option value="M">Maschi</option>
+                    <option value="F">Femmine</option>
+                </select>
+                </div>
+
+                <div>
+                    <label htmlFor="residenza">Residenza</label>
+                    <select id="residenza" name="residenza" onChange={this.onchangeFilter} value={this.state.residenza}>
+                        <option value="">Tutti</option>
+                        {this.optionResidenza.map(o => (
+                            <option value={o}>{o}</option>
+                        ))}
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="localizzazione">Localizzazione</label>
+                    <select id="localizzazione" name="localizzazione" onChange={this.onchangeFilter} value={this.state.localizzazione}>
+                        <option value="">Tutti</option>
+                        {this.optionLocalizzazione.map(o => (
+                            <option value={o}>{o}</option>
+                        ))}
+                    </select>
+                </div>
             </div>
         )
     }

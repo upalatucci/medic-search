@@ -27,3 +27,15 @@ code {
 .padding-input{
   margin-left:0px !important
 }
+
+.filters {
+  display: flex;
+}
+
+.filters > div {
+  margin: 10px;
+}
+
+.filters > div > * {
+  margin: 5px;
+}
